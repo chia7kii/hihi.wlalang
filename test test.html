@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Book</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Georgia', serif;
+        }
+        
+        .container {
+            text-align: center;
+        }
+        
+        .book {
+            width: 300px;
+            height: 400px;
+            background: linear-gradient(to right, #8B4513 0%, #D2691E 100%);
+            border-radius: 10px;
+            padding: 20px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin: 20px auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+        
+        .book:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        }
+        
+        .book-title {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        .book-subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .page {
+            display: none;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            max-width: 600px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            color: #333;
+        }
+        
+        .page.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .page h2 {
+            color: #667eea;
+            margin-top: 0;
+        }
+        
+        .page-content {
+            line-height: 1.8;
+            font-size: 16px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        
+        .controls {
+            margin-top: 20px;
+        }
+        
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        
+        button:hover {
+            background: #764ba2;
+        }
+        
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .back-to-book {
+            background: #D2691E;
+        }
+        
+        .back-to-book:hover {
+            background: #8B4513;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="book" onclick="openBook()">
+            <div class="book-title">📖 YIHII!</div>
+            <div class="book-subtitle">click moko</div>
+        </div>
+        
+        <div class="page" id="page1">
+            <h2>hi mara</h2>
+            <div class="page-content">
+                <p>lol testing lang to honestly.</p>
+                <p>lwk promted this sa visual studios</p>
+            </div>
+            <div class="controls">
+                <button onclick="nextPage()">Next Page →</button>
+                <button class="back-to-book" onclick="backToBook()">← Back to Book</button>
+            </div>
+        </div>
+        
+        <div class="page" id="page2">
+            <h2>trip trip muna</h2>
+            <div class="page-content">
+                <p>actually ung basics na tinutukoy ko is hello world how to add colors and stuffs WHAGSHGAHSGAH</p>
+                <p>LMAOOO pero highkey cool kase aaralin ko palang watch me tamo rremake koto pag may oras nako</p>
+            </div>
+            <div class="controls">
+                <button onclick="prevPage()">← Previous Page</button>
+                <button onclick="nextPage()">Next Page →</button>
+                <button class="back-to-book" onclick="backToBook()">← Back to Book</button>
+            </div>
+        </div>
+        
+        <div class="page" id="page3">
+            <h2>wohoooo</h2>
+            <div class="page-content">
+                <p>tamo pag ako naka hanap ng crush gagawan ko agad ng website </p>
+                <p>ps. pa reto nga baka may kilala ka thx.</p>
+            </div>
+            <div class="controls">
+                <button onclick="prevPage()">← Previous Page</button>
+                <button class="back-to-book" onclick="backToBook()">← Back to Book</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let currentPage = 0;
+        
+        function openBook() {
+            document.querySelector('.book').style.display = 'none';
+            showPage(1);
+        }
+        
+        function showPage(pageNum) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById('page' + pageNum).classList.add('active');
+            currentPage = pageNum;
+        }
+        
+        function nextPage() {
+            if (currentPage < 3) {
+                showPage(currentPage + 1);
+            }
+        }
+        
+        function prevPage() {
+            if (currentPage > 1) {
+                showPage(currentPage - 1);
+            }
+        }
+        
+        function backToBook() {
+            document.querySelector('.book').style.display = 'flex';
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            currentPage = 0;
+        }
+    </script>
+</body>
+</html>
